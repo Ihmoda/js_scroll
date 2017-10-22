@@ -20,11 +20,12 @@
 	</style>
 </head>
 <body>
-
+	
 	Coding is <div id="magic"></div>
 
 	<script>
 
+		var colors = ["red", "yellow", "green", "blue", "pink", "purple"];
 		var words = ["fun", "exciting", "about not giving up", "being helpful", "being open", "what I learned at CodingDojo!"],
 			el = document.getElementById('magic'),
 			word_counter = 0,
@@ -32,10 +33,20 @@
 
 		function updateText()
 		{
-			el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+			//added condition that switches space to nbsp
+			//this maintains "cursor" effect of right border at end of words.
+			if (words[word_counter][character_counter] == " "){
+				el.innerHTML = el.innerHTML + "&nbsp";
+				character_counter++;
+			} else {
+				el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+			};
+			
 
-			if(character_counter == words[word_counter].length)
+			// added + 1 to character count.length (account for zero-index)
+			if(character_counter == words[word_counter].length + 1)
 			{
+				colortext();
 				word_counter++; 	//choose a different word
 				character_counter = 0;	//start over with the first character of the word
 				el.innerHTML = '';  //set the html to be blank
@@ -44,6 +55,17 @@
 				if(word_counter == words.length)
 					word_counter = 0;
 			}
+		}
+
+		//changes the color of the 'magic' div randomly
+		function colortext(){
+			
+			var colorindex = Math.floor(Math.random() * 7);
+			console.log(colorindex);
+			var color = colors[colorindex];
+			var magictext = document.getElementById('magic');
+			magictext.style.color = color;
+
 		}
 
 		setInterval(updateText,300);
