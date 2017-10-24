@@ -30,6 +30,7 @@
 			el = document.getElementById('magic'),
 			word_counter = 0,
 			character_counter = 0;
+			var temp = 1;
 
 		function updateText()
 		{
@@ -50,10 +51,20 @@
 				word_counter++; 	//choose a different word
 				character_counter = 0;	//start over with the first character of the word
 				el.innerHTML = '';  //set the html to be blank
+				
+
+				word_counter = Math.floor(Math.random()*words.length);
+				while (word_counter == temp){
+					word_counter = Math.floor(Math.random()*words.length);
+				}
+
+				temp = word_counter;
+
+				
 
 				//if we're displaying the last word, go back to the first word
-				if(word_counter == words.length)
-					word_counter = 0;
+				/*if(word_counter == words.length)
+					word_counter = 0;*/
 			}
 		}
 
